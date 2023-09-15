@@ -2,25 +2,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:equatable/equatable.dart';
 
-import 'newestbooks_navigator.dart';
+import '../../../home/data/models/book_model/book_model.dart';
+import '../../../home/data/repos/home_repo.dart';
+
 
 part 'newestbooks_state.dart';
 
 class NewestbooksCubit extends Cubit<NewestbooksState> {
-  final NewestbooksNavigator navigator;
 
-  NewestbooksCubit({
-    required this.navigator,
-  }) : super(const NewestbooksState());
 
-  Future<void> loadInitialData() async {
-    emit(state.copyWith(loadDataStatus: LoadStatus.initial));
-    try {
-      //Todo: add API calls
-      emit(state.copyWith(loadDataStatus: LoadStatus.success));
-    } catch (e, s) {
-      //Todo: should print exception here
-      emit(state.copyWith(loadDataStatus: LoadStatus.failure));
-    }
+  NewestbooksCubit(this.homeRepo) : super(const NewestbooksState());
+  final HomeRepo homeRepo;
+  Future<void> fetchNewsetBooks()async{
+    emit(NewsetBooksLoading());
+    var result =  await homeRepo.fetchNewsBooks();
+    result.fold((failure)
+    {
+      emit(NewsetBooksFailure(failure.errMessage));
+    },
+          (books) {
+        emit(NewsetBooksSuccess(books));
+      },);
   }
-}
+
+  }
