@@ -13,7 +13,7 @@ class SimilarBooksSection extends StatelessWidget{
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-            'You can also like 💖',
+            'You can also like ',
             style: Styles.text14.copyWith(
               fontWeight: FontWeight.w600,)
         ),
