@@ -30,7 +30,7 @@ class HomeViewBody extends StatelessWidget{
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.0),
                 child: Text(
-                  ' Newest Books 📚',
+                  ' Newest Books ',
                   style: Styles.text18,
                 ),
               ),
